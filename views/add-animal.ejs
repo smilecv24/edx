@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EDX</title>
+</head>
+<body>
+<form action='/new-animal' method='post'>
+    <div>
+        Name: <input type='text' name="name"/ required />
+    </div>
+    <div>
+        Species: <input type='text' name="species" required />
+    </div>
+    <div>
+        Breed: <input type='text' name="breed" />
+    </div>
+    <div>
+        Gender:
+        <input type='radio' name="gender" value='male' />
+        <input type='radio' name="gender" value='female' />
+    </div>
+    <div>
+        Traits:
+        <input type='text' name="traits" />
+    </div>
+    <div>
+        Age:
+        <input type='number' name="age" />
+    </div>
+    <input type='submit' value='Send' />
+</form>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EDX</title>
+</head>
+<body>
+<ul>
+<% toys.forEach( (toy) => { %>
+   <li>
+    <%= toy.id %>, <%= toy.name %>, <%= toy.price %>;
+   </li>
+<% }); %>
+</ul>
+</body>
+</html>
