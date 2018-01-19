@@ -19,7 +19,7 @@ app.use('/new-animal', (req, res, next) => {
         species: req.body.species,
         breed: req.body.breed,
         gender: req.body.gender,
-        traits: req.body.traits,
+        traits: [].concat(req.body.traits.split(',')),
         age: req.body.age
     });
     newAnimal.save((err, animal) => {
@@ -67,8 +67,45 @@ app.use('/findToy', (req, res) => {
 });
 
 app.use('/findAnimals', (req, res) => {
-    Animal.find(req.query).then((list) => {
+    let query = {};
+    if (req.query.species) {
+        query['species'] = req.query.species;
+    }
+    if (req.query.age) {
+        query['age'] = req.query.age;
+    }
+    if (req.query.trait) {
+        query['traits'] = {'$regex': req.query.trait, '$options': 'i'};
+    }
+    Animal.find(query).then((list) => {
         res.render('all-animals', {animals: list});
+    });
+});
+
+app.use('/animalsYoungerThan', (req, res) => {
+    let query = {};
+    if (req.query.age) {
+        query['age'] = {$lt: req.query.age};
+    }
+    Animal.find(query).then((list) => {
+        res.render('all-animals', {animals: list});
+    });
+});
+
+app.use('/calculatePrice', (req, res) => {
+    let query = {};
+    if (req.query.id) {
+        query['id'] = {$in: req.query.id};
+    }
+    Toy.find(query).then((list) => {
+        req.query.id.map((item) => {
+            list.forEach((el, index) => {
+                if (el.id === item) {
+                    el['totalPrice'] = req.query.qty[index] * el.price;
+                }
+            });
+        });
+        res.render('all-toys', {toys: list});
     });
 });
 

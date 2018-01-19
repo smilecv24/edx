@@ -8,7 +8,10 @@
 <ul>
 <% toys.forEach( (toy) => { %>
    <li>
-    <%= toy.id %>, <%= toy.name %>, <%= toy.price %>;
+    <%= toy.id %>, <%= toy.name %>, <%= toy.price %>
+    <% if (toy.totalPrice) { %>
+        </br> total price = <%= toy.totalPrice %>;
+    <% } %>
    </li>
 <% }); %>
 </ul>
