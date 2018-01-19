@@ -9,11 +9,16 @@
 <% toys.forEach( (toy) => { %>
    <li>
     <%= toy.id %>, <%= toy.name %>, <%= toy.price %>
-    <% if (toy.totalPrice) { %>
-        </br> total price = <%= toy.totalPrice %>;
+    <% if (toy.subtotal) { %>
+        </br> sub total price = <%= toy.subtotal %>;
     <% } %>
    </li>
 <% }); %>
 </ul>
+
+<% if (typeof totalPrice === 'number') { %>
+    Total price = <%= totalPrice %>
+<% } %>
+
 </body>
 </html>

@@ -98,14 +98,16 @@ app.use('/calculatePrice', (req, res) => {
         query['id'] = {$in: req.query.id};
     }
     Toy.find(query).then((list) => {
+        let totalPrice = 0;
         req.query.id.map((item) => {
-            list.forEach((el, index) => {
+            list.map((el, index) => {
                 if (el.id === item) {
-                    el['totalPrice'] = req.query.qty[index] * el.price;
+                    el['subtotal'] = req.query.qty[index] * el.price;
+                    totalPrice += el['subtotal'];
                 }
             });
         });
-        res.render('all-toys', {toys: list});
+        res.render('all-toys', {toys: list, totalPrice: totalPrice});
     });
 });
 
