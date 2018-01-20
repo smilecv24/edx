@@ -6,12 +6,26 @@
 </head>
 <body>
 <ul>
-<% animals.forEach( (animal) => { %>
-   <li>
-    <%= animal.name %>, <%= animal.species %>, <%= animal.breed %>,
-    <%= animal.gender %>, <%= animal.traits %>, <%= animal.age %>
-   </li>
-<% }); %>
+    <% if (typeof animals === 'object') { %>
+    <% animals.forEach( (animal) => { %>
+    <li>
+        <%= animal.name %>, <%= animal.species %>, <%= animal.breed %>,
+        <%= animal.gender %>, <%= animal.traits %>, <%= animal.age %>
+    </li>
+    <% }); %>
+    <% } %>
+
+    <% if (typeof names === 'object') { %>
+    <% names.forEach( (name) => { %>
+    <li>
+        <%= name %>;
+    </li>
+    <% }); %>
+    <% } %>
+
+    <% if (typeof count === 'number') { %>
+    count = <%= count %>
+    <% } %>
 </ul>
 </body>
 </html>

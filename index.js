@@ -62,7 +62,8 @@ app.use('/all-toys', (req, res) => {
 
 app.use('/findToy', (req, res) => {
     Toy.find({id: req.query.id}, (err, list) => {
-        res.render('all-toys', {toys: list});
+      res.send(JSON.stringify({ toys: list }));
+      // res.render('all-toys', {toys: list});
     });
 });
 
@@ -78,7 +79,8 @@ app.use('/findAnimals', (req, res) => {
         query['traits'] = {'$regex': req.query.trait, '$options': 'i'};
     }
     Animal.find(query).then((list) => {
-        res.render('all-animals', {animals: list});
+      res.send(JSON.stringify({ animals: list }));
+      // res.render('all-animals', {animals: list});
     });
 });
 
@@ -88,7 +90,10 @@ app.use('/animalsYoungerThan', (req, res) => {
         query['age'] = {$lt: req.query.age};
     }
     Animal.find(query).then((list) => {
-        res.render('all-animals', {animals: list});
+        let names = [];
+        list.forEach(animal => names.push(animal.name));
+        res.send(JSON.stringify({ names: names, count: list.length }));
+        // res.render('all-animals', {names: names, count: list.length});
     });
 });
 
@@ -99,15 +104,21 @@ app.use('/calculatePrice', (req, res) => {
     }
     Toy.find(query).then((list) => {
         let totalPrice = 0;
+        let items = [];
         req.query.id.map((item) => {
             list.map((el, index) => {
                 if (el.id === item) {
-                    el['subtotal'] = req.query.qty[index] * el.price;
-                    totalPrice += el['subtotal'];
+                    let result = {};
+                    result['item'] = el.id;
+                    result['qty'] = req.query.qty[index];
+                    result['subtotal'] = req.query.qty[index] * el.price;
+                    items.push(result);
+                    totalPrice += result['subtotal'];
                 }
             });
         });
-        res.render('all-toys', {toys: list, totalPrice: totalPrice});
+      res.send(JSON.stringify({ items: items, totalPrice: totalPrice }));
+      // res.render('all-toys', {items: items, totalPrice: totalPrice});
     });
 });
 

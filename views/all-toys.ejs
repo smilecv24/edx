@@ -6,18 +6,28 @@
 </head>
 <body>
 <ul>
-<% toys.forEach( (toy) => { %>
-   <li>
-    <%= toy.id %>, <%= toy.name %>, <%= toy.price %>
-    <% if (toy.subtotal) { %>
-        </br> sub total price = <%= toy.subtotal %>;
+    <% if (typeof toys === 'object') { %>
+
+    <% toys.forEach( (toy) => { %>
+    <li>
+        <%= toy.id %>, <%= toy.name %>, <%= toy.price %>
+    </li>
+    <% }); %>
     <% } %>
-   </li>
-<% }); %>
+
+    <% if (typeof items === 'object') { %>
+
+    <% items.forEach( (toy) => { %>
+    <li>
+        <%= toy.item %>, <%= toy.qty %>, <%= toy.subtotal %>
+    </li>
+    <% }); %>
+    <% } %>
+
 </ul>
 
 <% if (typeof totalPrice === 'number') { %>
-    Total price = <%= totalPrice %>
+Total price = <%= totalPrice %>
 <% } %>
 
 </body>
