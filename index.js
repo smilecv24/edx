@@ -7,6 +7,8 @@ var Toy = require('./Toy.js');
 
 app.set('view engine', 'ejs');
 
+
+
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/add-animal', (req, res) => {
@@ -118,4 +120,4 @@ app.listen(3000, () => {
 
 
 // Please do not delete the following line; we need it for testing!
-module.exports = app;
+// module.exports = app;
